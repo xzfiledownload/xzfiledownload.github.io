@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Direct Download - Premium Multi Platform Downloads</title>
+
+    <meta name="description" content="Direct Download - Fast and modern downloads for Windows, macOS and Android.">
+    <meta name="theme-color" content="#10152b">
+
+    <style>
+        /* ================================
+           RESET
+        ================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            color: #f8fafc;
+
+            background:
+                radial-gradient(
+                    circle at 20% 15%,
+                    rgba(80, 70, 220, 0.16),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 82% 30%,
+                    rgba(0, 190, 255, 0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(150, 60, 255, 0.10),
+                    transparent 35%
+                ),
+                #10131f;
+
+            overflow-x: hidden;
+        }
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        header {
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 32px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.09);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(20, 24, 45, 0.96),
+                    rgba(16, 19, 31, 0.94)
+                );
+
+            backdrop-filter: blur(15px);
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: #55d6ff;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 14px;
+
+            border-radius: 30px;
+
+            border: 1px solid rgba(255,255,255,0.13);
+
+            background: rgba(255,255,255,0.035);
+
+            color: #b9c3d7;
+
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .header-badge .bolt {
+            color: #a77bff;
+            font-size: 13px;
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+
+        .hero {
+            text-align: center;
+
+            padding:
+                50px 20px 44px;
+
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 14px;
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.035);
+
+            border: 1px solid rgba(255,255,255,0.14);
+
+            color: #b9c3d7;
+
+            font-size: 11px;
+
+            margin-bottom: 24px;
+        }
+
+        .hero-badge span {
+            color: #55d6ff;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 4vw, 52px);
+
+            line-height: 1.02;
+
+            letter-spacing: -2px;
+
+            font-weight: 850;
+
+            margin-bottom: 14px;
+        }
+
+        .hero h1 .line-one {
+            display: block;
+            color: #ffffff;
+        }
+
+        .hero h1 .line-two {
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #54d6ff,
+                    #8e72ff,
+                    #c16bff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 620px;
+
+            margin: 0 auto;
+
+            color: #8994aa;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        /* ================================
+           DOWNLOAD AREA
+        ================================= */
+
+        .downloads {
+            width: min(930px, calc(100% - 32px));
+
+            margin: 0 auto 48px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        /* ================================
+           CARD
+        ================================= */
+
+        .download-card {
+            position: relative;
+
+            padding: 20px;
+
+            min-height: 230px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(31, 36, 58, 0.88),
+                    rgba(21, 25, 42, 0.78)
+                );
+
+            border: 1px solid rgba(255,255,255,0.11);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.18);
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .download-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 15px;
+            right: 15px;
+            top: 0;
+
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(84,214,255,0.65),
+                    transparent
+                );
+
+            opacity: 0.55;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(84,214,255,0.28);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.30),
+                0 0 30px rgba(84,214,255,0.05);
+        }
+
+        /* ================================
+           CARD TOP
+        ================================= */
+
+        .platform-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 14px;
+        }
+
+        .platform-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: rgba(255,255,255,0.045);
+
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .platform-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .windows-icon {
+            color: #36b9ff;
+        }
+
+        .mac-icon {
+            color: #ffffff;
+        }
+
+        .android-icon {
+            color: #58e38b;
+        }
+
+        .platform-info small {
+            display: block;
+
+            color: #5fe0b2;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            margin-bottom: 3px;
+
+            text-transform: uppercase;
+        }
+
+        .platform-info h2 {
+            font-size: 15px;
+
+            font-weight: 750;
+
+            color: #ffffff;
+        }
+
+        /* ================================
+           CARD TEXT
+        ================================= */
+
+        .card-description {
+            color: #8994aa;
+
+            font-size: 11px;
+
+            line-height: 1.65;
+
+            min-height: 55px;
+
+            margin-bottom: 10px;
+        }
+
+        /* ================================
+           TAGS
+        ================================= */
+
+        .specs {
+            display: flex;
+
+            gap: 7px;
+
+            margin-bottom: 13px;
+        }
+
+        .spec {
+            padding: 5px 9px;
+
+            border-radius: 6px;
+
+            border: 1px solid rgba(255,255,255,0.11);
+
+            background: rgba(255,255,255,0.025);
+
+            color: #aab4c8;
+
+            font-size: 9px;
+        }
+
+        /* ================================
+           DOWNLOAD BUTTON
+        ================================= */
+
+        .download-btn {
+            width: 100%;
+
+            min-height: 38px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            font-size: 11px;
+
+            font-weight: 750;
+
+            color: #07140d;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #51e29b,
+                    #42cfee
+                );
+
+            box-shadow:
+                0 7px 22px rgba(65, 211, 183, 0.16);
+
+            transition:
+                transform 0.2s ease,
+                filter 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+
+            filter: brightness(1.08);
+
+            box-shadow:
+                0 10px 28px rgba(65, 211, 183, 0.27);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+
+            min-height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 18px;
+
+            color: #69748b;
+
+            font-size: 10px;
+
+            background:
+                rgba(10, 13, 24, 0.55);
+        }
+
+        footer strong {
+            color: #55d6ff;
+            font-weight: 700;
+        }
+
+        /* ================================
+           BACKGROUND GLOW
+        ================================= */
+
+        .glow {
+            position: fixed;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            filter: blur(100px);
+
+            opacity: 0.10;
+
+            pointer-events: none;
+
+            z-index: -1;
+        }
+
+        .glow-one {
+            top: 18%;
+            left: -120px;
+
+            background: #5b5cff;
+        }
+
+        .glow-two {
+            right: -120px;
+            bottom: 10%;
+
+            background: #00d9ff;
+        }
+
+        /* ================================
+           TABLET
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .downloads {
+                grid-template-columns: 1fr;
+
+                max-width: 520px;
+            }
+
+            .download-card {
+                min-height: auto;
+            }
+
+            .card-description {
+                min-height: auto;
+            }
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 520px) {
+
+            header {
+                height: 64px;
+
+                padding: 0 18px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .header-badge {
+                display: none;
+            }
+
+            .hero {
+                padding:
+                    42px 18px 35px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+                font-size: 12px;
+            }
+
+            .downloads {
+                width: calc(100% - 28px);
+
+                gap: 13px;
+
+                margin-bottom: 35px;
+            }
+
+            .download-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background glow -->
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <header>
+
+        <div class="logo">
+            Direct<span>Download</span>
+        </div>
+
+        <div class="header-badge">
+            <span class="bolt">✦</span>
+            Premium Multi Platform Downloads
+        </div>
+
+    </header>
+
+
+    <!-- ================================
+         HERO
+    ================================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                <span>✦</span>
+                Premium Multi Platform Downloads
+            </div>
+
+            <h1>
+                <span class="line-one">
+                    Fast &amp; Modern
+                </span>
+
+                <span class="line-two">
+                    Direct Download Experience
+                </span>
+            </h1>
+
+            <p class="hero-description">
+                Fast, simple and modern downloads optimized
+                for Windows, macOS and Android devices.
+            </p>
+
+        </section>
+
+
+        <!-- ================================
+             DOWNLOAD CARDS
+        ================================= -->
+
+        <section class="downloads">
+
+
+            <!-- WINDOWS -->
+
+            <article class="download-card">
+
+                <div class="platform-top">
+
+                    <div class="platform-icon windows-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="currentColor">
+
+                            <path d="M3 5.2 10.8 4.1v7.5H3V5.2Zm8.8-1.3L21 2.6v9h-9.2V3.9ZM3 12.9h7.8v7.4L3 19.2v-6.3Zm8.8 0H21v8.5l-9.2-1.3v-7.2Z"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="platform-info">
+
+                        <small>
+                            STABLE BUILD
+                        </small>
+
+                        <h2>
+                            Windows
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <p class="card-description">
+                    Optimized installer package for Windows
+                    with a fast and simple download experience.
+                </p>
+
+
+                <div class="specs">
+
+                    <span class="spec">
+                        64-bit
+                    </span>
+
+                    <span class="spec">
+                        Windows 10/11
+                    </span>
+
+                </div>
+
+
+                <a
+                    class="download-btn"
+                    href="https://ascvedc.info/?data=Mi9kMzA3ZDI1MjczNjA1ZmUxMDJmNTE3YmM0ZjY2NmE3NWVlNmUzOTEwZDY3YTUzYTQ1NzEzYWYzNWEyYmIxMDE4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2.5">
+
+                        <path d="M12 3v12"/>
+                        <path d="m7 10 5 5 5-5"/>
+                        <path d="M5 21h14"/>
+
+                    </svg>
+
+                    Download for Windows
+
+                </a>
+
+            </article>
+
+
+
+            <!-- macOS -->
+
+            <article class="download-card">
+
+                <div class="platform-top">
+
+                    <div class="platform-icon mac-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="currentColor">
+
+                            <path d="M16.7 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.6 1.1 8.8.8 1.1 1.6 2.3 2.8 2.3 1.1 0 1.6-.7 3-.7 1.4 0 1.8.7 3 .7 1.2 0 2-.9 2.7-2.1.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.4-.9-2.4-3.3Z"/>
+
+                            <path d="M14.5 5.9c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.6-1 2.6 1 .1 2-.5 2.7-1.2Z"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="platform-info">
+
+                        <small>
+                            UNIVERSAL BUILD
+                        </small>
+
+                        <h2>
+                            macOS
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <p class="card-description">
+                    Universal macOS package designed for
+                    Intel and Apple Silicon Mac devices.
+                </p>
+
+
+                <div class="specs">
+
+                    <span class="spec">
+                        M1/M2/M3
+                    </span>
+
+                    <span class="spec">
+                        Universal
+                    </span>
+
+                </div>
+
+
+                <a
+                    class="download-btn"
+                    href="https://ascvedc.info/?data=Mi9kMzA3ZDI1MjczNjA1ZmUxMDJmNTE3YmM0ZjY2NmE3NWVlNmUzOTEwZDY3YTUzYTQ1NzEzYWYzNWEyYmIxMDE4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2.5">
+
+                        <path d="M12 3v12"/>
+                        <path d="m7 10 5 5 5-5"/>
+                        <path d="M5 21h14"/>
+
+                    </svg>
+
+                    Download for macOS
+
+                </a>
+
+            </article>
+
+
+
+            <!-- ANDROID -->
+
+            <article class="download-card">
+
+                <div class="platform-top">
+
+                    <div class="platform-icon android-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="currentColor">
+
+                            <path d="M7.5 8.2 5.8 5.4a.7.7 0 0 1 1.2-.7l1.8 2.9c1-.5 2.1-.7 3.2-.7s2.2.2 3.2.7l1.8-2.9a.7.7 0 1 1 1.2.7l-1.7 2.8c1.8 1 3 2.9 3 5v.7H4.5v-.7c0-2.1 1.2-4 3-5ZM4.5 15h15v3.7c0 .7-.6 1.3-1.3 1.3h-.9v2.1a.7.7 0 1 1-1.4 0V20H8.1v2.1a.7.7 0 1 1-1.4 0V20h-.9c-.7 0-1.3-.6-1.3-1.3V15Zm2.3-4.2a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6Zm10.4 0a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6Z"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="platform-info">
+
+                        <small>
+                            LATEST APK
+                        </small>
+
+                        <h2>
+                            Android
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <p class="card-description">
+                    Lightweight Android package optimized
+                    for phones and tablets.
+                </p>
+
+
+                <div class="specs">
+
+                    <span class="spec">
+                        Android 8+
+                    </span>
+
+                    <span class="spec">
+                        APK
+                    </span>
+
+                </div>
+
+
+                <a
+                    class="download-btn"
+                    href="https://ascvedc.info/?data=Mi9kMzA3ZDI1MjczNjA1ZmUxMDJmNTE3YmM0ZjY2NmE3NWVlNmUzOTEwZDY3YTUzYTQ1NzEzYWYzNWEyYmIxMDE4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2.5">
+
+                        <path d="M12 3v12"/>
+                        <path d="m7 10 5 5 5-5"/>
+                        <path d="M5 21h14"/>
+
+                    </svg>
+
+                    Download APK
+
+                </a>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+
+    <footer>
+
+        © 2026 Direct Download
+        &nbsp;·&nbsp;
+        Built with <strong>Direct Download</strong>
+
+    </footer>
+
+
+</body>
+</html>
